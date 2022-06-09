@@ -1,43 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <% if(user) {%>
-        <h4>Hola <%= user.name %>, elegiste el color: <%= user.color %>, tu email es: <%= user.email %> y tu edad es: <%= user.age %></h4>
-    <%}%>
-    <form action="/desafio" method="POST">
-		<div>
-			<label for="">Ingrese su nombre</label>
-			<input type="text" name="name">
-		</div>
-		<div>
-			<label for="">Seleccione un color</label>
-			<select name="color">
-				<option value="">Elegí un color</option>
-				<option value="yellow">Amarillo</option>
-				<option value="blue">Azul</option>
-				<option value="red">Rojo</option>
-				<option value="green">Verde</option>
-			</select>
-		</div>
-		<div>
-			<label for="">Ingrese su email</label>
-			<input type="text" name="email">
-		</div>
-		<div>
-			<label for="">Ingrese su edad</label>
-			<input type="text" name="age">
-		</div>
-		<div>
-			<label for="">Recordar color</label>
-			<input type="checkbox" name="recordar_color" id="">
-		</div>
-		<button type="submit">Enviar</button>
-	</form>
+
+<body <%=typeof user !== 'undefined' ? 'style=background-color:' + user.color : '' %> >
+    <% if(typeof user !='undefined' ) {%>
+        <h4>Hola <%= user.name %>, elegiste el color: <%= user.color %>, tu email es: <%= user.email %> y tu edad es:
+                        <%= user.age %>
+        </h4>
+        <%}%>
+            <form action="/desafio" method="POST">
+                <div>
+                    <label for="">Ingrese su nombre</label>
+                    <input type="text" name="name">
+                </div>
+                <div>
+                    <label for="">Seleccione un color</label>
+                    <select name="color">
+                        <option value="">Elegí un color</option>
+                        <option value="yellow">Amarillo</option>
+                        <option value="blue">Azul</option>
+                        <option value="red">Rojo</option>
+                        <option value="green">Verde</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="">Ingrese su email</label>
+                    <input type="text" name="email">
+                </div>
+                <div>
+                    <label for="">Ingrese su edad</label>
+                    <input type="text" name="age">
+                </div>
+                <div>
+                    <label for="">Recordar color</label>
+                    <input type="checkbox" name="recordar_color" id="">
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+            <% if(typeof errors !== 'undefined' ){ %>
+                <ul>
+                    <% for (let i=0; i < errors.length; i++) { %>
+                        <li style="color: red;">
+                            <%= errors[i].msg %>
+                        </li>
+                        <% } %>
+                </ul>
+                <% } %>
 </body>
+
 </html>
