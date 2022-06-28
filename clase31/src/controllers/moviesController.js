@@ -1,5 +1,10 @@
 const db = require('../database/models');
 
+
+/**
+ * Aqui en este controlador uso el Async/Await y el try/catch para resolver las promesas, 
+ * es igual a los de generos pero recuerden que usando esta estructura queda mas prolijoj el codigo
+ */
 const moviesController = {
     list: async (req, res) => {
         try {
