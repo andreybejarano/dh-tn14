@@ -1,0 +1,31 @@
+{
+  "name": "clase26",
+  "version": "1.0.0",
+  "description": "Clase26 express-session cookie-parser express-validator",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "clase26",
+    "express-validator",
+    "cookie-parser",
+    "express-session"
+  ],
+  "author": "andrey bejarano <andreybejarano@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.2",
+    "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
