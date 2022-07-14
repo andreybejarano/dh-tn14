@@ -4,6 +4,7 @@ const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 const moment = require('moment');
 const fetch = require('node-fetch');
+const { JSON } = require('sequelize');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Movies = db.Movie;
@@ -173,26 +174,37 @@ const moviesAPIController = {
             })
             .catch(error => res.send(error))
     },
-    getMovieByName: (req, res) => {
-        db.Movie.findOne({ where: { title: req.params.name } })
-            .then((movie) => {
-                if (!movie) {
-                    return fetch(`http://www.omdbapi.com/?apikey=7581f363&t=${req.params.name}`)
-                        .then(response => {
-                            return response.json();
-                        })
-                        .then(data => {
-                            return res.json(data);
-                        })
-                        .catch(err => {
-                            return res.json(err);
-                        });
-                }
-                return res.json(movie);
-            })
-            .catch((err) => {
-                res.json(err);
-            });
+    getMovieByName: async (req, res) => {
+        try {
+            const movieFromDb = await db.Movie.findOne({ where: { title: req.params.name } });
+            if (!movieFromDb) {
+                const responseOmdbapi = await fetch(`http://www.omdbapi.com/?apikey=7581f363&t=${req.params.name}`)
+                let movieFromAPI = await responseOmdbapi.json();
+                return res.json(movieFromAPI);
+            }
+            return res.json(movieFromDb);
+        } catch (error) {
+            res.json(error);
+        }
+        // db.Movie.findOne({ where: { title: req.params.name } })
+        //     .then((movieFromDb) => {
+        //         if (!movieFromDb) {
+        //             return fetch(`http://www.omdbapi.com/?apikey=7581f363&t=${req.params.name}`)
+        //                 .then(responseOmdbapi => {
+        //                     return responseOmdbapi.json();
+        //                 })
+        //                 .then(movieFromAPI => {
+        //                     return res.json(movieFromAPI);
+        //                 })
+        //                 .catch(err => {
+        //                     return res.json(err);
+        //                 });
+        //         }
+        //         return res.json(movieFromDb);
+        //     })
+        //     .catch((err) => {
+        //         res.json(err);
+        //     });
     }
 }
 
