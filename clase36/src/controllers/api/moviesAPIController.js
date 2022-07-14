@@ -177,7 +177,7 @@ const moviesAPIController = {
         db.Movie.findOne({ where: { title: req.params.name } })
             .then((movie) => {
                 if (!movie) {
-                    fetch(`http://www.omdbapi.com/?apikey=7581f363&t=${req.params.name}`)
+                    return fetch(`http://www.omdbapi.com/?apikey=7581f363&t=${req.params.name}`)
                         .then(response => {
                             return response.json();
                         })
